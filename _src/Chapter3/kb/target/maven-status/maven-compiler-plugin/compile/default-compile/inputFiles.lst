@@ -1,0 +1,12 @@
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/web/converters/ObjectIdConverter.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/web/RecentArticlesBean.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/cdi/MongoConnection.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/web/QueryBean.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/data/MongoArticleRepository.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/cdi/DatastoreProducer.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/entity/Article.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/cdi/MongoSettingsProducer.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/web/ViewArticleBean.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/data/ArticleRepository.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/web/ArticleBean.java
+/Users/david/Develop/NetBeansProjects/kb/src/main/java/com/davidsalter/kb/data/MongoSettings.java

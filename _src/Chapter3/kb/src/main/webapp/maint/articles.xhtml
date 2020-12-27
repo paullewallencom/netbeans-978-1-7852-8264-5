@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Knowledge Base</title>
+        <h:outputStylesheet library="css" name="foundation.css" />
+        <h:outputStylesheet library="css" name="normalize.css" />
+        <h:outputStylesheet library="css" name="kb.css" />
+        <h:outputScript library="js" name="vendor/modernizr.js" />
+    </h:head>
+    <body>
+        <nav class="top-bar" data-topbar="true" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h:link  outcome="/index"><h:graphicImage library="img" name="kb_logo_small.png" style="height:50px;" /></h:link>
+                </li>
+                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li>
+                        <h:link value="Maintenance" outcome="/maint/articles" />
+                    </li>
+
+                </ul>
+            </section>
+
+        </nav>
+        <h:form>
+        <div class="row">
+            <div class="large-9 columns">
+                <h1>Query Knowledge Base</h1>
+            </div>
+            <div class="large-2 large-offset-1 columns">
+                <h:graphicImage library="img" name="kb_logo_small.png" style="margin-top:10px;" />
+            </div>
+        </div>
+            <div class="row">
+                <h:commandButton style="margin-top:10px;margin-left:15px;" class="button radius small" type="submit" id="createArticle" value="#{msgs.createButton}"
+                                 action="#{articleBean.create}"/>
+            </div>
+            <div class="row">
+
+                <div class="large-12 columns">
+                    <h:outputText style="margin-left:15px; padding:5px;" class="alert alert-success" value="#{msgs.noArticlesMessage}" rendered="#{empty articleBean.articles}"/>
+                    <h:dataTable value="#{articleBean.articles}" var="article" rendered="#{not empty articleBean.articles}">
+                        <h:column>
+                            <f:facet name="header"><h4><h:outputText value="#{msgs.nameLabel}"/></h4></f:facet>
+                            <h:outputText value="#{article.name}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink value="#{msgs.editLabel}" action="#{articleBean.edit}">
+                                <f:setPropertyActionListener target="#{articleBean.id}" value="#{article.id}" />
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+
+            </div>
+        </h:form>
+
+        <h:outputScript library="js" name="vendor/jquery.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.min.js"></h:outputScript>
+        <script>
+            $(document).foundation();
+        </script>
+
+    </body>
+</html>
+

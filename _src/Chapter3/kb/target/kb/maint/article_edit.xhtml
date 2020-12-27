@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Knowledge Base</title>
+        <h:outputStylesheet library="css" name="foundation.css" />
+        <h:outputStylesheet library="css" name="normalize.css" />
+        <h:outputStylesheet library="css" name="kb.css" />
+        <h:outputScript library="js" name="vendor/modernizr.js" />
+    </h:head>
+    <body>
+        <nav class="top-bar" data-topbar="true" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h:link  outcome="/index"><h:graphicImage library="img" name="kb_logo_small.png" style="height:50px;" /></h:link>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li>
+                        <a href="articles.xhtml">Maintenance</a>
+                    </li>
+
+                </ul>
+            </section>
+
+        </nav>
+        <h:form>
+
+            <h:inputHidden  id="id" value="#{articleBean.article.id}">
+                <f:converter converterId="com.davidsalter.kb.web.converters.ObjectIdConverter" />
+            </h:inputHidden>
+
+            <div class="row">
+                <div class="large-9 columns">
+                    <h1>Edit Article</h1>
+                </div>
+                <div class="large-2 large-offset-1 columns">
+                    <h:graphicImage library="img" name="kb_logo_small.png" style="margin-top:10px;" />
+                </div>
+            </div>
+
+            <div class="row panel">
+                <div class="small-12">
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <h:outputLabel for="name" class="right inline" value="#{msgs.nameLabel}"/>
+                        </div>
+                        <div class="small-5 columns">
+                            <h:inputText id="name" value="#{articleBean.article.name}" label="Name" >
+                                <f:validateLength minimum="2" maximum="50"/>
+                            </h:inputText>
+                        </div>
+                        <div class="small-6 columns error-message">
+                            <h:message class="alert label" for="name"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <h:outputLabel for="body" class="right inline" value="#{msgs.bodyLabel}"/>
+                        </div>
+                        <div class="small-11 columns ">
+                            <h:inputTextarea id="body" value="#{articleBean.article.body}" label="Body" rows="10">
+                                <f:validateLength minimum="10" />
+                            </h:inputTextarea>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="small-1 column"></div>
+                        <div class="small-11 column">
+                            <div class="small-6 error error-message">
+                                <h:message class="alert label" for="body"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-top:20px;">
+                    <div class="small-12 columns">
+                        <h:commandButton class="button radius small" type="submit" id="create" value="#{msgs.updateButton}"
+                                         action="#{articleBean.update}"/>
+                        <a href="#" data-reveal-id="deleteModal" class="button radius small alert">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+        <div id="deleteModal" class="reveal-modal" data-reveal="true">
+            <h:form>
+                <h2>Delete article?</h2>
+                <p class="lead">Do you really want to delete this article.</p>
+                <p class="panel"><h:outputText id="titleForDeletion" value="#{articleBean.article.name}" /></p>
+
+                <a id="closeModal" class="closeModal button radius small">Cancel</a>
+                <h:commandButton style="margin-left:10px;" class="button radius small alert" type="submit" id="deleteArticle" value="#{msgs.deleteButton}"
+                                 action="#{articleBean.delete}"/>
+
+                <a class="close-reveal-modal">&#215;</a>
+
+            </h:form>
+        </div>
+
+        <h:outputScript library="js" name="vendor/jquery.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.min.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.reveal.js"></h:outputScript>
+<script type="text/javascript" src="#{request.contextPath}/resources/js/vendor/tinymce/tinymce.min.js"/>
+        <script>
+            $(document).foundation();
+            tinymce.init({selector:'textarea', menubar:false});
+
+            $('#closeModal').click(function () {
+                $('.close-reveal-modal', '#deleteModal').click();
+            });
+        </script>
+
+
+    </body>
+</html>
+

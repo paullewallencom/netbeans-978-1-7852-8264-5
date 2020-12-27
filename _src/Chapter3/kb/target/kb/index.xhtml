@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Welcome to the Knowledge Base</title>
+        <h:outputStylesheet library="css" name="foundation.css" />
+        <h:outputStylesheet library="css" name="normalize.css" />
+        <h:outputStylesheet library="css" name="kb.css" />
+        <h:outputScript library="js" name="vendor/modernizr.js" />
+    </h:head>
+    <h:body>
+        <nav class="top-bar" data-topbar="true" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h:link  outcome="/index"><h:graphicImage library="img" name="kb_logo_small.png" style="height:50px;" /></h:link>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li>
+                        <h:link value="Maintenance" outcome="/maint/articles" />
+                    </li>
+
+                </ul>
+            </section>
+
+        </nav>
+
+        <div class="row">
+            <div class="large-9 columns">
+                <h1>Query Knowledge Base</h1>
+            </div>
+            <div class="large-2 large-offset-1 columns">
+                <h:graphicImage library="img" name="kb_logo_small.png" style="margin-top:10px;" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-9 columns">
+                <h:form>
+
+                    <div class="row panel">
+                        <div class="small-12">
+                            <div class="row">
+                                <div class="small-1 columns">
+                                    <h:outputLabel for="name" class="right inline" value="#{msgs.nameLabel}"/>
+                                </div>
+                                <div class="small-11 columns">
+                                    <h:inputText id="name" value="#{queryBean.query}" label="Name" p:placeholder="#{msgs.queryPlaceholder}" >
+                                        <f:validateLength minimum="2" maximum="50"/>
+                                    </h:inputText>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h:commandButton style="margin-top:10px;margin-left:15px;" class="button radius small" type="submit" id="query" value="#{msgs.queryButton}"
+                                                     action="#{queryBean.performQuery}"/>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <ui:repeat value="#{queryBean.articles}" var="article" rendered="#{queryBean.articles.size()>0}" >
+                            <div class="row">
+
+                                <div class="small-12 columns">
+                                    <h:column>
+                                        <h:commandLink value="#{article.name}" action="#{viewArticleBean.viewArticle}">
+                                            <f:setPropertyActionListener target="#{viewArticleBean.id}" value="#{article.id}" />
+                                        </h:commandLink>
+
+                                        <h:link value="#{article.name}" outcome="viewArticle">
+                                            <f:param name="articleId" value="#{article.id}"/>
+                                        </h:link>
+                                    </h:column>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <h:column>
+                                        #{article.name}
+                                    </h:column>
+                                </div>
+
+                            </div>
+                        </ui:repeat>
+                    </div>
+
+                </h:form>
+            </div>
+            <div class="large-2 large-offset-1 columns panel">
+                <div class="row"><strong>Recent Articles</strong></div>
+
+                <ui:repeat value="#{recentArticlesBean.articles}" var="recent" >
+                    <div class="row">
+                        <h:link value="#{recent.name}" outcome="viewArticle">
+                            <f:param name="articleId" value="#{recent.id}"/>
+                        </h:link>
+                    </div>
+                </ui:repeat>
+
+            </div>
+        </div>
+
+        <h:outputScript library="js" name="vendor/jquery.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.min.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.reveal.js"></h:outputScript>
+
+        <script>
+            $(document).foundation();
+        </script>
+    </h:body>
+</html>
+

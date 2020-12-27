@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/Users/david/Library/Application%20Support/NetBeans/8.0.2/config/WebServices/NewSTSWizard.wsdl" uri="src/conf/xml-resources/web-services/NewSTSWizard/wsdl/NewSTSWizard.wsdl"/>
+    <system systemId="file:/Users/david/Library/Application%20Support/NetBeans/8.0.2/config/WebServices/sts_schema.xsd" uri="src/conf/xml-resources/web-services/NewSTSWizard/wsdl/sts_schema.xsd"/>
+    <system systemId="http://localhost:8080/CustomerService/SampleWebServiceFromScratch?wsdl" uri="src/conf/xml-resources/web-service-references/SampleWebServiceFromScratch/wsdl/localhost_8080/CustomerService/SampleWebServiceFromScratch.wsdl"/>
+    <system systemId="http://localhost:8080/CustomerService/SampleWebServiceFromScratch?xsd=1" uri="src/conf/xml-resources/web-service-references/SampleWebServiceFromScratch/wsdl/localhost_8080/CustomerService/SampleWebServiceFromScratch.xsd_1.xsd"/>
+</catalog>

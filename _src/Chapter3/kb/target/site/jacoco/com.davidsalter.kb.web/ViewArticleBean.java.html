@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ViewArticleBean.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kb</a> &gt; <a href="index.source.html" class="el_package">com.davidsalter.kb.web</a> &gt; <span class="el_source">ViewArticleBean.java</span></div><h1>ViewArticleBean.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2014-2015 David Salter &lt;david@developinjava.com&gt;.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.davidsalter.kb.web;
+
+import com.davidsalter.kb.data.ArticleRepository;
+import com.davidsalter.kb.entity.Article;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.bson.types.ObjectId;
+
+/**
+ * JSF CDI bean responsible for managing the viewing of articles.
+ * 
+ * @author &lt;a href=&quot;mailto:david@developinjava.com&quot;&gt;David Salter&lt;/a&gt;
+ */
+@Named
+@SessionScoped
+public class ViewArticleBean implements Serializable {
+    
+    private String id;
+
+    @Inject
+    ArticleRepository mongoArticleRepository;
+
+<span class="fc" id="L40">    private Article article = new Article();</span>
+
+    /**
+     * Default constructor for the class.
+     */
+<span class="fc" id="L45">    public ViewArticleBean() {</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Stores the id of the article to view and retrieves the article from the database.
+     * @param id The id of the article to view.
+     */
+    public void setId(String id) {
+        
+<span class="fc" id="L54">        this.id = id;</span>
+
+<span class="fc" id="L56">        article = mongoArticleRepository.getArticle(new ObjectId(this.id));</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Retrieves the id of the article currently being viewed.
+     * @return Document id
+     */
+    public String getId() {
+<span class="fc" id="L64">        return id;</span>
+    }
+
+    /**
+     * Return the article for use as el in a JSF page.
+     * @return The article
+     */
+    public Article getArticle() {
+<span class="fc" id="L72">        return article;</span>
+    }
+
+    /**
+     * Store the article being viewed.
+     * @param article The article
+     */
+    public void setArticle(Article article) {
+<span class="fc" id="L80">        this.article = article;</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * JSF action method returning the view to be displayed for viewing an article.
+     * @return The JSF view
+     */
+    public String viewArticle() {
+<span class="fc" id="L88">        return &quot;viewArticle.xhtml&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

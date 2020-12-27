@@ -1,0 +1,9 @@
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/cdi/TestMongoSettingsProvider.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/entity/ArticleTest.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/cdi/mock/MockArticleRepositoryProducer.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/data/mock/MockArticleRepository.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/data/MongoSettingsTest.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/test/TestInMemoryMongo.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/web/converters/ObjectIdConverterTest.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/web/ViewArticleBeanTest.java
+/Users/david/Develop/NetBeansProjects/kb/src/test/java/com/davidsalter/kb/web/ViewArticleBeanArquillianTest.java

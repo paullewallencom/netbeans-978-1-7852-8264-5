@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Knowledge Base</title>
+        <h:outputStylesheet library="css" name="foundation.css" />
+        <h:outputStylesheet library="css" name="normalize.css" />
+        <h:outputStylesheet library="css" name="kb.css" />
+    </h:head>
+    <body>
+        <nav class="top-bar" data-topbar="true" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h:link  outcome="/index"><h:graphicImage library="img" name="kb_logo_small.png" style="height:50px;" /></h:link>
+                </li>
+                <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li>
+                        <a href="articles.xhtml">Maintenance</a>
+                    </li>
+
+                </ul>
+            </section>
+        </nav>
+        <h:form id="addForm">
+
+            <h:inputHidden  id="id" value="#{articleBean.article.id}">
+                <f:converter converterId="com.davidsalter.kb.web.converters.ObjectIdConverter" />
+            </h:inputHidden>
+            <div class="row">
+                <div class="large-9 columns">
+                    <h1>New Article</h1>
+                </div>
+                <div class="large-2 large-offset-1 columns">
+                    <h:graphicImage library="img" name="kb_logo_small.png" style="margin-top:10px;" />
+                </div>
+            </div>
+
+            <div class="row panel">
+                <div class="small-12">
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <h:outputLabel for="name" class="right inline" value="#{msgs.nameLabel}"/>
+                        </div>
+                        <div class="small-5 columns">
+                            <h:inputText id="name" value="#{articleBean.article.name}" label="Name" p:placeholder="#{msgs.newNamePlaceholder}" >
+                                <f:validateLength minimum="2" maximum="50"/>
+                            </h:inputText>
+                        </div>
+                        <div class="small-6 columns error-message">
+                            <h:message class="alert label" for="name"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="small-1 columns">
+                            <h:outputLabel for="body" class="right inline" value="#{msgs.bodyLabel}"/>
+                        </div>
+                        <div class="small-11 columns ">
+                            <h:inputTextarea id="bodyText" value="#{articleBean.article.body}" label="Body" rows="10" p:placeholder="#{msgs.newBodyPlaceholder}">
+                                <f:validateLength minimum="10" />
+                            </h:inputTextarea>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="small-1 column"></div>
+                        <div class="small-11 column">
+                            <div class="small-6 error error-message">
+                                <h:message class="alert label" for="body"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-top:20px;">
+                    <div class="small-12 columns">
+                        <h:commandButton class="button radius small" type="submit" id="create" value="#{msgs.updateButton}"
+                                         action="#{articleBean.persist}"/>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+       <h:outputScript library="js" name="vendor/jquery.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.min.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.reveal.js"></h:outputScript>
+        <h:outputScript library="js" name="vendor/modernizr.js" />
+       <script type="text/javascript" src="#{request.contextPath}/resources/js/vendor/tinymce/tinymce.min.js"/>
+        <script>
+            $(document).foundation();
+            tinymce.init({selector:'textarea', menubar:false});
+        </script>
+
+
+    </body>
+</html>
+

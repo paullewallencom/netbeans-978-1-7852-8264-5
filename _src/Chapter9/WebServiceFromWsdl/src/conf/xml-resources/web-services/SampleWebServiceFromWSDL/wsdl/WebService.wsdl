@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:ds="http://www.davidsalter.com/HelloService/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="http://www.davidsalter.com/HelloService/">
+
+    <wsdl:documentation>
+        Simple Hello Web Service WSDL
+    </wsdl:documentation>
+
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                targetNamespace="http://www.davidsalter.com/HelloService/">
+            <xsd:element name="HelloRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xsd:string"/>
+                    </xs:sequence>
+                </xs:complexType> 
+            </xsd:element>
+            <xsd:element name="HelloResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="greeting" type="xsd:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="helloInputMessage">
+        <wsdl:part name="helloInputPart"
+               element="ds:HelloRequest"/>
+    </wsdl:message>
+    
+    <wsdl:message name="helloOutputMessage">
+        <wsdl:part name="helloOutputPart"
+               element="ds:HelloResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="helloPortType">
+        <wsdl:operation name="greetings">
+            <wsdl:input name="helloInput"
+                  message="ds:helloInputMessage"/>
+            <wsdl:output name="helloOutput"
+                   message="ds:helloOutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="helloBinding"
+                type="ds:helloPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="greetings">
+            <soap12:operation style="document" soapAction="urn:HelloWorld"/>
+            <wsdl:input name="helloInput">
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="helloOutput">
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="helloService">
+        <wsdl:port name="helloPort"
+               binding="ds:helloBinding">
+            <soap12:address location=
+        "http://www.davidsalter.com/HelloService/"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

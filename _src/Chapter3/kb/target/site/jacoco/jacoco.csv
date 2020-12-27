@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+kb,com.davidsalter.kb.entity,Article,3,90,4,8,0,26,3,17,0,14
+kb,com.davidsalter.kb.data,MongoArticleRepository,100,20,2,0,24,4,7,2,6,2
+kb,com.davidsalter.kb.data,MongoSettings,0,26,0,0,0,12,0,6,0,6
+kb,com.davidsalter.kb.cdi,DatastoreProducer,13,79,0,0,3,15,0,3,0,3
+kb,com.davidsalter.kb.cdi,MongoSettingsProducer,22,0,0,0,4,0,2,0,2,0
+kb,com.davidsalter.kb.web.converters,ObjectIdConverter,0,19,0,2,0,6,0,4,0,3
+kb,com.davidsalter.kb.web,QueryBean,34,0,0,0,12,0,6,0,6,0
+kb,com.davidsalter.kb.web,RecentArticlesBean,21,0,0,0,7,0,3,0,3,0
+kb,com.davidsalter.kb.web,ViewArticleBean,0,34,0,0,0,11,0,6,0,6
+kb,com.davidsalter.kb.web,ArticleBean,90,0,2,0,23,0,12,0,11,0

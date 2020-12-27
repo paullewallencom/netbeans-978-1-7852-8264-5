@@ -1,0 +1,9 @@
+com/davidsalter/kb/data/MongoSettingsTest.class
+com/davidsalter/kb/cdi/TestMongoSettingsProvider.class
+com/davidsalter/kb/data/mock/MockArticleRepository.class
+com/davidsalter/kb/web/ViewArticleBeanTest.class
+com/davidsalter/kb/test/TestInMemoryMongo.class
+com/davidsalter/kb/web/ViewArticleBeanArquillianTest.class
+com/davidsalter/kb/web/converters/ObjectIdConverterTest.class
+com/davidsalter/kb/entity/ArticleTest.class
+com/davidsalter/kb/cdi/mock/MockArticleRepositoryProducer.class

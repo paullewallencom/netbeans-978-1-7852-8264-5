@@ -1,0 +1,12 @@
+com/davidsalter/kb/web/ViewArticleBean.class
+com/davidsalter/kb/web/RecentArticlesBean.class
+com/davidsalter/kb/data/ArticleRepository.class
+com/davidsalter/kb/data/MongoSettings.class
+com/davidsalter/kb/web/QueryBean.class
+com/davidsalter/kb/data/MongoArticleRepository.class
+com/davidsalter/kb/entity/Article.class
+com/davidsalter/kb/web/converters/ObjectIdConverter.class
+com/davidsalter/kb/cdi/MongoSettingsProducer.class
+com/davidsalter/kb/cdi/DatastoreProducer.class
+com/davidsalter/kb/cdi/MongoConnection.class
+com/davidsalter/kb/web/ArticleBean.class

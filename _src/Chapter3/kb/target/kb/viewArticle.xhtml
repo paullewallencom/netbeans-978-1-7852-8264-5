@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Welcome to the Knowledge Base</title>
+        <h:outputStylesheet library="css" name="foundation.css" />
+        <h:outputStylesheet library="css" name="normalize.css" />
+        <h:outputStylesheet library="css" name="kb.css" />
+        <h:outputScript library="js" name="vendor/modernizr.js" />
+    </h:head>
+    <h:body>
+                <nav class="top-bar" data-topbar="true" role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h:link  outcome="/index"><h:graphicImage library="img" name="kb_logo_small.png" style="height:50px;" /></h:link>
+                </li>
+            </ul>
+
+            <section class="top-bar-section">
+                <ul class="left">
+                    <li>
+                        <h:link value="Maintenance" outcome="/maint/articles" />
+                    </li>
+
+                </ul>
+            </section>
+
+        </nav>
+        <f:metadata>  
+            <f:viewParam id="articleId" name="articleId" value="#{viewArticleBean.id}"/>  
+        </f:metadata>
+        <h:form>
+                        <div class="row">
+                <div class="large-9 columns">
+                    
+                </div>
+                <div class="large-2 large-offset-1 columns">
+                    <h:graphicImage library="img" name="kb_logo_small.png" style="margin-top:10px;" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-6">
+                    <h1>${viewArticleBean.article.name}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="small-12">
+                    <h:outputText value="#{viewArticleBean.article.body}" escape="false" />
+                </div>
+            </div>
+
+        </h:form>
+
+        <h:outputScript library="js" name="vendor/jquery.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.min.js"></h:outputScript>
+        <h:outputScript library="js" name="foundation.reveal.js"></h:outputScript>
+
+        <script>
+            $(document).foundation();
+        </script>
+    </h:body>
+</html>
+

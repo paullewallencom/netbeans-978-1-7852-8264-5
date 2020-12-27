@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DatastoreProducer.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kb</a> &gt; <a href="index.source.html" class="el_package">com.davidsalter.kb.cdi</a> &gt; <span class="el_source">DatastoreProducer.java</span></div><h1>DatastoreProducer.java</h1><pre class="source lang-java linenums"> /*
+ * Copyright 2014-2015 David Salter &lt;david@developinjava.com&gt;.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.davidsalter.kb.cdi;
+
+import com.davidsalter.kb.data.MongoSettings;
+import com.davidsalter.kb.entity.Article;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
+import java.io.Serializable;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+
+/**
+ *
+ * @author &lt;a href=&quot;mailto:david@developinjava.com&quot;&gt;David Salter&lt;/a&gt;
+ */
+@ApplicationScoped
+@Named
+<span class="fc" id="L42">public class DatastoreProducer implements Serializable {</span>
+    
+<span class="fc" id="L44">    private Datastore datastore = null;</span>
+
+    @Inject
+    @MongoConnection
+    MongoSettings mongoSettings;
+        
+    @PostConstruct
+    public void init() {
+        
+        MongoClient mongoClient;
+        try {
+<span class="fc" id="L55">            System.out.println(&quot;About to connect to mongo.&quot;+mongoSettings.getHost()+&quot;:&quot;+mongoSettings.getPort());</span>
+<span class="fc" id="L56">            mongoClient = new MongoClient(mongoSettings.getHost(), mongoSettings.getPort());</span>
+<span class="fc" id="L57">            System.out.println(&quot;Connected to mongo.&quot;);</span>
+<span class="nc" id="L58">        } catch (UnknownHostException ex) {</span>
+<span class="nc" id="L59">            Logger.getLogger(DatastoreProducer.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L60">            throw new RuntimeException(&quot;Could not connect to mongo.&quot;);</span>
+<span class="fc" id="L61">        }</span>
+        
+<span class="fc" id="L63">        Morphia morphia = new Morphia();</span>
+<span class="fc" id="L64">        morphia.map(Article.class);</span>
+        
+<span class="fc" id="L66">        datastore = morphia.createDatastore(mongoClient, &quot;kb&quot;);</span>
+<span class="fc" id="L67">        datastore.ensureIndexes();</span>
+        
+<span class="fc" id="L69">        DB db = mongoClient.getDB(&quot;kb&quot;);</span>
+        
+<span class="fc" id="L71">        DBCollection articleCollection = db.getCollection(&quot;Article&quot;);</span>
+<span class="fc" id="L72">        articleCollection.createIndex(new BasicDBObject(&quot;body&quot;, &quot;text&quot;));</span>
+
+<span class="fc" id="L74">    }</span>
+    
+    
+    @Produces
+    public Datastore getDatastore() {
+<span class="fc" id="L79">        return datastore;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

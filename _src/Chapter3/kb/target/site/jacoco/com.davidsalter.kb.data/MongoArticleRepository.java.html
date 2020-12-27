@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MongoArticleRepository.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kb</a> &gt; <a href="index.source.html" class="el_package">com.davidsalter.kb.data</a> &gt; <span class="el_source">MongoArticleRepository.java</span></div><h1>MongoArticleRepository.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2014 David Salter &lt;david@developinjava.com&gt;.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.davidsalter.kb.data;
+
+import com.davidsalter.kb.entity.Article;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+import javax.inject.Named;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
+
+/**
+ *
+ * @author &lt;a href=&quot;mailto:david@developinjava.com&quot;&gt;David Salter&lt;/a&gt;
+ */
+@Named(&quot;mongoArticleRepository&quot;)
+@Dependent
+public class MongoArticleRepository implements Serializable, ArticleRepository {
+    
+<span class="fc" id="L42">    public MongoArticleRepository() {</span>
+<span class="fc" id="L43">    }</span>
+    
+    @Inject
+    private Datastore ds;
+    
+    @Override
+    public List&lt;Article&gt; findAll() {
+<span class="nc" id="L50">        return ds.find(Article.class).asList();</span>
+    }
+
+    @Override
+    public List&lt;Article&gt; findLatest(int count) {
+<span class="nc" id="L55">        Query query = ds.createQuery(Article.class).order(&quot;-dateCreated&quot;).limit(count);</span>
+        
+<span class="nc" id="L57">        List&lt;Article&gt; results = query.asList();</span>
+        
+<span class="nc" id="L59">        return results;</span>
+    }
+            
+    @Override
+    public void deleteArticle(Article article) {
+<span class="nc" id="L64">        ds.delete(article);</span>
+<span class="nc" id="L65">    }</span>
+
+    @Override
+    public Article getArticle(ObjectId id) {
+<span class="fc" id="L69">        System.out.println(&quot;Asking for document: &quot; + id);</span>
+        
+<span class="fc" id="L71">        return ds.get(Article.class, id);</span>
+    }
+
+    @Override
+    public void editArticle(Article article) {
+<span class="nc" id="L76">        ds.save(article);</span>
+<span class="nc" id="L77">    }</span>
+
+    @Override
+    public void addArticle(Article article) {
+<span class="nc" id="L81">        article.setDateCreated(new Date());</span>
+<span class="nc" id="L82">        ds.save(article);</span>
+<span class="nc" id="L83">    }</span>
+
+    @Override
+    public ArrayList&lt;Article&gt; findInBody(String query, int maxResults) {
+        
+<span class="nc" id="L88">        ArrayList&lt;Article&gt; articles = new ArrayList&lt;Article&gt;();</span>
+
+<span class="nc" id="L90">        DBCollection articleCollection = ds.getDB().getCollection(&quot;Article&quot;);</span>
+<span class="nc" id="L91">        BasicDBObject search = new BasicDBObject(&quot;$search&quot;, query);</span>
+<span class="nc" id="L92">        BasicDBObject textSearch = new BasicDBObject(&quot;$text&quot;, search);</span>
+<span class="nc" id="L93">        DBCursor cursor = articleCollection.find(textSearch).limit(maxResults);</span>
+        
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        while (cursor.hasNext()) {</span>
+<span class="nc" id="L96">            DBObject obj = cursor.next();</span>
+<span class="nc" id="L97">            Article article = new Article();</span>
+<span class="nc" id="L98">            article.setId((ObjectId) obj.get(&quot;_id&quot;));</span>
+<span class="nc" id="L99">            article.setName((String) obj.get(&quot;name&quot;));</span>
+            
+<span class="nc" id="L101">            articles.add(article);</span>
+<span class="nc" id="L102">        }</span>
+        
+<span class="nc" id="L104">        return articles;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
